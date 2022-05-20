@@ -1,6 +1,35 @@
 .wrapper{
-    color:white;
-    background: gray;
-    text-align: center;
-    height: 100vh;
+    padding:5%;
+
+}
+.message{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.author, .text{
+    height: 30px;
+  
+}
+.text{
+    height: 50px;
+}
+.area{
+    display: flex;
+    flex-direction: column;
+   
+}
+.robot{
+    padding:10px;
+}
+.input{
+padding:5px;
+margin-bottom: 5px;
+
+}
+.button{
+margin:5px;
+
 }

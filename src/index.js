@@ -1,26 +1,31 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {MessageList, FolderList} from "./components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
 import './style.css'
-import {green} from '@mui/material/colors';
+import { Header } from "./components";
+import { ProfilePage, ChatPage, HomePage } from "./pages";
+//import {green} from '@mui/material/colors';
 const theme = createTheme({
-  palette: {
-
-     primary: {
-        main: green[500],
-    },
+  myPalette: {
+color:"red",
   },
+  palette:{}
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode >
     <ThemeProvider theme={theme}>
-      <div class="display">
-            <FolderList/>
-    <MessageList />
-    </div>
+    <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/chat/*" element={<ChatPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="*" element={<h1>404</h1>} />
+        </Routes>
+      </BrowserRouter>
 
     </ThemeProvider>
   </React.StrictMode>

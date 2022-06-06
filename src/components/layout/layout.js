@@ -10,3 +10,4 @@ export const Layout = ({ chats, messages }) => {
     </div>
   );
 };
+

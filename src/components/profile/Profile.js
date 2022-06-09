@@ -1,11 +1,16 @@
 import { useSelector, useDispatch } from "react-redux";
-import { toggleVisibleProfile} from "../../store/profile";
+import { toggleVisibleProfile, profileSelector} from "../../store/profile";
 import { Checkbox, FormControlLabel, Typography} from "@mui/material";
 import {Form} from "./form";
 import styles from "./porfile.module.css";
+import {  useMemo } from "react";
 
 export const Profile = () => {
-  const profile = useSelector((state) => state.profile);
+  //const profile = useSelector((state) => state.profile);
+  const selector = useMemo(() => profileSelector(), []);
+  
+  const profile = useSelector(selector);
+
   const dispatch = useDispatch();
 
   return (

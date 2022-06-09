@@ -14,3 +14,8 @@
 .description .text:last-child {
   text-align: right;
 }
+.delbut{
+  border: none;
+  background: transparent;
+  color: white;
+}

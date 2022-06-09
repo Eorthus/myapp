@@ -1,18 +1,57 @@
 import { List } from "@mui/material";
-import { Link, useParams } from "react-router-dom";
-import { useState } from "react";
+import { Link, useParams, useNavigate,  } from "react-router-dom";
+import { useState, useMemo } from "react";
+import { useSelector, useDispatch,  } from "react-redux";
+import styles from "./chatlist.module.css";
+import {
+  createConversation,
+  deleteConversation,
+  conversationSelector,
+} from "../../store/conversations";
 import { Chat } from "./chat";
+import { useCallback } from "react";
+
 
 export const ChatList = () => {
-  const [chats] = useState(["First", "Second", "Third"]);
+  //const [chats] = useState(["First", "Second", "Third"]);
+  const selector = useMemo(() => conversationSelector(), []);
+  
+    const conversations = useSelector(selector);
 
   const { roomId } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  /*const conversations = useSelector(
+    (state) => state.conversations.conversations
+  );*/
+
+  const createConversationByName = () => {
+    const name = prompt("Введите название комнаты");
+    const isValidName = !conversations.includes(name);
+
+    if (!!name && isValidName) {
+      dispatch(createConversation(name));
+    } else {
+      alert("Не валидная комната");
+    }
+  };
+
+  const deleteConversationByName = useCallback(
+    (conversation, e) => {
+      e.preventDefault();
+      dispatch(deleteConversation(conversation));
+      navigate("/chat");
+    },
+    [dispatch, navigate]
+  );
   return (
     <List component="nav" >
-      {chats.map((chat) => (
+       <button className={styles.createbut} onClick={createConversationByName}>create room</button>
+
+      {conversations.map((chat) => (
         <Link key={chat} to={`/chat/${chat}`}>
-          <Chat title={chat} selected={roomId === chat} />
+          <Chat title={chat} selected={roomId === chat} deleteConversationByName={deleteConversationByName} />
         </Link>
       ))}
     </List>

@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useRef, useCallback  } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo  } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import styles from './message.module.css'
 import styled from "@emotion/styled";
 import classNames from "classnames";
+import { sendMessage, messagesSelector } from "../../store/messages";
 import { Input, InputAdornment, Button, TextField, Typography } from "@mui/material";
-
+/*
   const getBotMessage = () => ({
     currentauthor: "Bot",
     currenttext: "Hello from bot",
@@ -17,43 +19,37 @@ import { Input, InputAdornment, Button, TextField, Typography } from "@mui/mater
       "Hi": "Hi",
     };
     return answers[message] || "not found answer";
-  };
+  };*/
 export const MessageList = () => {
     const { roomId } = useParams();
     const [currentauthor, setAuthor] = useState("");
     const [currenttext, setText] = useState("");
-    const [messageList, setMessageList] = useState({
-      room1: [getBotMessage()],
-    });
+    const dispatch = useDispatch();
+
+    const selector = useMemo(() => messagesSelector(roomId), [roomId]);
+  
+    const messages = useSelector(selector);
 
     const ref = useRef();
       useEffect(() => {
         if (ref.current) {
           ref.current.scrollTo(0, ref.current.scrollHeight);
         }
-      }, [messageList]);
+      }, [messages]);
 
       
     const handleChange = useCallback(
       (currentauthor, currenttext)=>{
         if (currenttext) {
-          setMessageList((state) => ({
-            ...state,
-            [roomId]: [
-              ...(state[roomId] ?? []),
-              { currentauthor, currenttext, date: new Date() },
-            ],
-          }));
+          dispatch(sendMessage(roomId, {message:currenttext, author:currentauthor }));
           setAuthor("");
           setText("");
         }
-     //   let newMes={author:currentauthor, text:currenttext}
-    //    messages.push(newMes)
-     //   setMessages([...messages, newMes]);
-      },
-      [roomId]
-    );
 
+      },
+      [dispatch, roomId]
+    );
+/*
     useEffect(() => {
       const messages = messageList[roomId] ?? [];
       const lastMessage = messages[messages.length - 1];
@@ -69,13 +65,13 @@ export const MessageList = () => {
         clearInterval(timerId);
       };
     }, [handleChange, messageList, roomId]);
-
+*/
     const handlePressInput = ({ code }) => {
       if (code === "Enter") {
         handleChange(currentauthor, currenttext);
       }
     };
-    const messages = messageList[roomId] ?? [];
+ //   const messages = messageList[roomId] ?? [];
     return (
         <div ref={ref} className={styles.wrapper}>
           <div className={styles.container} >
@@ -84,9 +80,9 @@ export const MessageList = () => {
             className={classNames(styles.message, {
               [styles.currentMessage]: item.currentauthor !== "Bot",
             })}
-             key={item?.date??index}>
-              <Typography  className={styles.author}>Author: {item.currentauthor}</Typography>
-              <Typography  className={styles.text}> Message: {item.currenttext}</Typography>
+             key={index}>
+              <Typography  className={styles.author}>Author: {item.author}</Typography>
+              <Typography  className={styles.text}> Message: {item.message}</Typography>
               </div>
           ))}
           </div>

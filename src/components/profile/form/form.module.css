@@ -1,0 +1,36 @@
+.wrapper{
+  display: flex;
+  flex-direction: column;
+justify-content: space-between;
+}
+.footer{
+  display: flex;
+  flex-direction: row;
+ 
+}
+.area{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.input{
+  border:1px solid gray !important;
+  margin-bottom: 20px !important;
+  border-radius: 4px;
+  color:white !important;
+  width: 100%;
+  
+  }
+  .input::placeholder{
+      color:gray !important
+  }
+  
+  .button{
+      margin:20px !important;
+  height: 135px;
+  border:1px solid gray !important;
+  max-width: 300px;
+  color:white !important;
+  
+  margin-bottom: auto;
+  }

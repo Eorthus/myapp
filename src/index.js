@@ -5,8 +5,9 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import './style.css'
 import { Header } from "./components";
 import { ProfilePage, ChatPage, HomePage } from "./pages";
-import { store } from "./store";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "./store";
 //import {green} from '@mui/material/colors';
 const theme = createTheme({
   myPalette: {
@@ -20,6 +21,7 @@ root.render(
   <React.StrictMode >
     <ThemeProvider theme={theme}>
     <Provider store={store}>
+    <PersistGate persistor={persistor}>
     <BrowserRouter>
         <Header />
         <Routes>
@@ -29,6 +31,7 @@ root.render(
           <Route path="*" element={<h1>404</h1>} />
         </Routes>
       </BrowserRouter>
+      </PersistGate>
       </Provider>
     </ThemeProvider>
   </React.StrictMode>

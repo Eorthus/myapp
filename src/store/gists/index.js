@@ -2,4 +2,4 @@ export * from "./actions";
 export * from "./reducer";
 export * from "./types";
 export * from "./selectors";
-export * from "../../pages/gists";
+export * from "./thunks";

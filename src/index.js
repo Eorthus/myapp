@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
 import './style.css'
 import { Header } from "./components";
-import { ProfilePage, ChatPage, HomePage } from "./pages";
+import { ProfilePage, ChatPage, HomePage, GistsPage } from "./pages";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./store";
@@ -28,6 +28,7 @@ root.render(
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/chat/*" element={<ChatPage />} />
           <Route path="/" element={<HomePage />} />
+          <Route path="/gists" element={<GistsPage />} />
           <Route path="*" element={<h1>404</h1>} />
         </Routes>
       </BrowserRouter>

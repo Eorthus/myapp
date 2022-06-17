@@ -15,7 +15,7 @@ export const Profile = () => {
 
   return (
     <div className={styles.wrapper} >
-     <Typography className={styles.title} style={{margin:'20px'}}>Profile Page</Typography>  
+     <h1 className={styles.title} style={{margin:'20px'}}>Profile Page</h1>  
      <div className={styles.info} style={{margin:'20px'}}>    
      <Typography className={styles.name}>Name: {profile.firstName}</Typography> 
      <Typography className={styles.surname}>Surname: {profile.lastName}</Typography> 

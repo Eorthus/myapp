@@ -3,6 +3,12 @@ import { profileReducer } from "./profile";
 import { conversationsReducer } from "./conversations";
 import { messagesReducer } from "./messages";
 import { getPublicGistsApi, getGistsByNameApi } from "../api/gists";
+import {
+  getConversationsApi,
+  createConversationApi,
+  removConversationApi,
+} from "../api/conversations";
+import { createMessageApi, getMessagesApi } from "../api/messages";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { gistsReducer } from "./gists";
@@ -11,7 +17,9 @@ import {
 } from "./middlewares";
 import thunk from "redux-thunk";
 
-const api = { getPublicGistsApi, getGistsByNameApi };
+const api = { getPublicGistsApi, getGistsByNameApi,   getConversationsApi,
+  createConversationApi,
+  removConversationApi,createMessageApi,getMessagesApi };
 
 const persistConfig = {
   key: "root",
@@ -40,24 +48,3 @@ export const store = createStore(
 );
 
 export const persistor = persistStore(store);
-/*const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-export const store = createStore(
-combineReducers({
-  profile: profileReducer,
-  conversations: conversationsReducer,
-  messages: messagesReducer,
-}),
-composeEnhancers(applyMiddleware(thunk, botMessage))
-);*/
-
-/*export const store = createStore(
-  combineReducers({ 
-    profile: profileReducer,
-    conversations: conversationsReducer,
-    messages: messagesReducer,
-  }),
-  
-  window.__REDUX_DEVTOOLS_EXTENSION__
-    ? window.__REDUX_DEVTOOLS_EXTENSION__()
-    : (args) => args
-);*/

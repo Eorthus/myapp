@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 export function Chat({ title, selected, deleteConversationByName }) {
   const message = useSelector((state) => {
     const messages = state.messages.messages[title] ?? [];
-console.log(messages)
+//console.log(messages)
     return messages[messages.length-1];
   });
 

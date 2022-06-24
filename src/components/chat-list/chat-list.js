@@ -6,7 +6,6 @@ import styles from "./chatlist.module.css";
 import {
   createConversation,
   deleteConversation,
-  conversationSelector,
 } from "../../store/conversations";
 import { Chat } from "./chat";
 import { useCallback } from "react";
@@ -14,9 +13,9 @@ import { useCallback } from "react";
 
 export const ChatList = () => {
   //const [chats] = useState(["First", "Second", "Third"]);
-  const selector = useMemo(() => conversationSelector(), []);
-  
-    const conversations = useSelector(selector);
+  const { conversations, pending } = useSelector(
+    (state) => state.conversations
+  );
 
   const { roomId } = useParams();
   const navigate = useNavigate();
@@ -48,12 +47,14 @@ export const ChatList = () => {
   return (
     <List component="nav" >
        <button className={styles.createbut} onClick={createConversationByName}>create room</button>
-
-      {conversations.map((chat) => (
+       {pending ? (
+        <h2>pending...</h2>
+      ) : (
+      conversations.map((chat) => (
         <Link key={chat} to={`/chat/${chat}`}>
           <Chat title={chat} selected={roomId === chat} deleteConversationByName={deleteConversationByName} />
         </Link>
-      ))}
+      )))}
     </List>
   );
 };

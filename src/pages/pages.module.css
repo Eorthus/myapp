@@ -5,6 +5,7 @@
    padding:20px 20px 0px 20px;
    display: flex;
    flex-direction: column;
+   height: 93vh;
 }
 .home{
     height: 93vh;
@@ -15,6 +16,16 @@
 .title{
 font-size: 25px;
 }
+.input{
+    border:1px solid gray !important;
+    margin-bottom: 20px !important;
+    border-radius: 4px;
+    color:white !important;
+    width: 100%;
+    background-color:#383838;
+    height: 50px;
+    padding-left:10px;
+    }
 .navs{
 display: flex;
 margin-top:20px;
@@ -43,4 +54,20 @@ max-width: 150px;
         color: white;
         margin-top: 20px;
         border-radius: 5px;
+    }
+
+    .form{
+        margin-top:30px;
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    }
+    .button{
+  
+    height: 50px;
+    border:1px solid gray !important;
+    max-width: 300px;
+    color:white !important;
+    
+    margin-bottom: auto;
     }

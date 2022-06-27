@@ -9,6 +9,7 @@ import {
   removeConversationSuccess,
   removeConversationError,
 } from "./actions";
+import { DELETE_CONVERSATION } from "../types";
 
 export const getConversations = () => async (dispatch, _, api) => {
   const conversations = [];
@@ -47,6 +48,7 @@ export const deleteConversation =
 
       await api.removConversationApi(conversation);
 
+      dispatch({ type: DELETE_CONVERSATION, payload: conversation });
       dispatch(removeConversationSuccess(conversation));
     } catch (e) {
       dispatch(removeConversationError(e));
